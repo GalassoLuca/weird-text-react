@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders learn react link 1`] = `
+<DocumentFragment>
+  <div
+    class="sc-bdVaJa fNlKZP"
+  >
+    <h1>
+      WeirdText
+    </h1>
+    <h2>
+      Encoder
+    </h2>
+    <h3>
+      Input
+    </h3>
+    <h4>
+      Text to encode
+    </h4>
+    <textarea
+      rows="5"
+    />
+    <h3>
+      Output
+    </h3>
+    <h4>
+      Encoded text
+    </h4>
+    <div>
+      Here the text.
+    </div>
+    <h4>
+      List of the original words that got encoded
+    </h4>
+    <div>
+      Here the list.
+    </div>
+    <h2>
+      Decoder
+    </h2>
+    <h3>
+      Input
+    </h3>
+    <h4>
+      Text to decode
+    </h4>
+    <textarea
+      rows="5"
+    />
+    <h4>
+      List of the original words that got encoded
+    </h4>
+    <div>
+      <input
+        type="text"
+      />
+    </div>
+    <h3>
+      Output
+    </h3>
+    <h4>
+      Decoded text
+    </h4>
+    <div>
+      Here the text.
+    </div>
+  </div>
+</DocumentFragment>
+`;
