@@ -1,15 +1,18 @@
 export function encode ({ text = '' } = {}) {
   if (!text.length) return {}
 
-  let encodedText = text
-
-  if (text.length > 3) {
-    const [a, b, c] = text
-    encodedText = text[0] + c + b + text.substring(3)
-  }
+  const words = text.split(/[^a-zA-Z]+/g)
+  const encodedText = words.reduce((encodedText, word) => encodedText.replace(word, encodeWord(word)), text)
 
   return {
-    words: [text],
+    words,
     encodedText
   }
+}
+
+function encodeWord (word) {
+  if (word.length <= 3) return word
+
+  const [a, b, c] = word
+  return word[0] + c + b + word.substring(3)
 }

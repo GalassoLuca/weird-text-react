@@ -4,6 +4,12 @@
   "description": "Encoding and decoding tool.",
   "keywords": [],
   "main": "src/index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "react": "16.8.0",
     "react-dom": "16.8.0",
@@ -15,12 +21,6 @@
     "@testing-library/react": "^9.4.1",
     "@testing-library/user-event": "^10.0.0",
     "fsevents": "^2.1.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
   },
   "browserslist": [
     ">0.2%",
