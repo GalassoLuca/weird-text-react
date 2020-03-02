@@ -25,7 +25,8 @@ test('should encode multiple words', () => {
 
   const output = encode({ text })
 
-  expect(output).toEqual(expected)
+  expect(output.words.sort()).toEqual(expected.words.sort())
+  expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
 
 test('should ignore puntuation', () => {
@@ -37,7 +38,8 @@ test('should ignore puntuation', () => {
 
   const output = encode({ text })
 
-  expect(output).toEqual(expected)
+  expect(output.words.sort()).toEqual(expected.words.sort())
+  expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
 
 test('should return only shuffled words', () => {
@@ -49,7 +51,21 @@ test('should return only shuffled words', () => {
 
   const output = encode({ text })
 
-  expect(output).toEqual(expected)
+  expect(output.words.sort()).toEqual(expected.words.sort())
+  expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
 
-test.skip('should return unique words', () => { })
+test('should return unique words', () => {
+  const text = 'Hey Luca, hello! Luca.'
+  const expected = {
+    words: ['hello', 'Luca'],
+    encodedText: 'Hey Lcua, hlelo! Lcua.'
+  }
+
+  const output = encode({ text })
+
+  expect(output.words.sort()).toEqual(expected.words.sort())
+  expect(output.encodedText).toStrictEqual(expected.encodedText)
+})
+
+test.skip('should shuffle words', () => { })
