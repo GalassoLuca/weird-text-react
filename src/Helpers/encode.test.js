@@ -4,18 +4,6 @@ test('should return empty object', () => {
   expect(encode()).toEqual({})
 })
 
-test('should return the expected for one short word', () => {
-  const text = 'Hey'
-  const expected = {
-    words: ['Hey'],
-    encodedText: 'Hey'
-  }
-
-  const output = encode({ text })
-
-  expect(output).toEqual(expected)
-})
-
 test('should return the expected for one long word', () => {
   const text = 'Hello'
   const expected = {
@@ -52,5 +40,16 @@ test('should ignore puntuation', () => {
   expect(output).toEqual(expected)
 })
 
-test.skip('should return only shuffled words', () => { })
+test('should return only shuffled words', () => {
+  const text = 'Hey, hello! Luca.'
+  const expected = {
+    words: ['hello', 'Luca'],
+    encodedText: 'Hey, hlelo! Lcua.'
+  }
+
+  const output = encode({ text })
+
+  expect(output).toEqual(expected)
+})
+
 test.skip('should return unique words', () => { })
