@@ -5,7 +5,12 @@ export function encode ({ text = '' } = {}) {
     .filter(w => w.length > 3)
 
   const uniqueWords = Array.from(new Set(words))
-  const encodedText = uniqueWords.reduce((encodedText, word) => encodedText.replace(new RegExp(word, 'g'), encodeWord(word)), text)
+  const encodedText = uniqueWords.reduce((encodedText, word) => {
+    const matchWith = new RegExp(word, 'g')
+    const replaceWith = encodeWord(word)
+
+    return encodedText.replace(matchWith, replaceWith)
+  }, text)
 
   return {
     words: uniqueWords,
