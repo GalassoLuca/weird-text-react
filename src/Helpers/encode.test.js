@@ -40,5 +40,17 @@ test('should encode multiple words', () => {
   expect(output).toEqual(expected)
 })
 
-test.skip('should ignore puntuation', () => {})
-test.skip('should return only shuffled words', () => {})
+test('should ignore puntuation', () => {
+  const text = 'Hello! Luca.'
+  const expected = {
+    words: ['Hello', 'Luca'],
+    encodedText: 'Hlelo! Lcua.'
+  }
+
+  const output = encode({ text })
+
+  expect(output).toEqual(expected)
+})
+
+test.skip('should return only shuffled words', () => { })
+test.skip('should return unique words', () => { })

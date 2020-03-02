@@ -1,7 +1,7 @@
 export function encode ({ text = '' } = {}) {
   if (!text.length) return {}
 
-  const words = text.split(/[^a-zA-Z]+/g)
+  const words = text.split(/[^a-zA-Z]+/g).filter(Boolean)
   const encodedText = words.reduce((encodedText, word) => encodedText.replace(word, encodeWord(word)), text)
 
   return {
