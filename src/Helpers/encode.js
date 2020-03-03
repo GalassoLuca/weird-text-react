@@ -18,6 +18,10 @@ export function encode ({ text = '' } = {}) {
   }
 }
 
+/* TODO: improve encodeWord function
+ * it should randomly suffle, or, at least, it should always return a different word from the one in input
+ * e.g. `Yeeah`
+ **/
 function encodeWord (word) {
   if (word.length <= 3) return word
 
