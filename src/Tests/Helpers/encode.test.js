@@ -1,4 +1,4 @@
-import { encode } from './encode'
+import { encode } from '../../Helpers/encode'
 
 test('should return empty object', () => {
   expect(encode()).toEqual({})
