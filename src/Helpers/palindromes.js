@@ -1,4 +1,4 @@
-export function check (text = '', { normalize = w => w.toLowerCase() } = {}) {
+export default function isPalindromes (text = '', { normalize = w => w.toLowerCase() } = {}) {
   const reverse = text.split("").reverse().join('')
 
   console.log(normalize(text) + ' vs ' + normalize(reverse))
