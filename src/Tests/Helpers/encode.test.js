@@ -1,14 +1,9 @@
-import { encode } from '../../Helpers/encode'
-
-test('should return a warning for missing param', () => {
-  const output = encode()
-  expect(output.warn).toBeDefined()
-})
+import encode from '../../Helpers/encode'
 
 test('should return a warning if there are short words', () => {
   const text = 'Hey'
 
-  const output = encode({ text })
+  const output = encode(text)
 
   expect(output.warn).toBeDefined()
 })
@@ -20,9 +15,11 @@ test('should return the expected for one long word', () => {
     encodedText: 'Hlelo'
   }
 
-  const output = encode({ text })
+  const output = encode(text)
 
-  expect(output).toEqual(expected)
+  expect(output.warn).toBeFalsy()
+  expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
+  expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
 
 test('should encode multiple words', () => {
@@ -32,8 +29,9 @@ test('should encode multiple words', () => {
     encodedText: 'Hlelo Lcua'
   }
 
-  const output = encode({ text })
+  const output = encode(text)
 
+  expect(output.warn).toBeFalsy()
   expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
   expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
@@ -45,8 +43,9 @@ test('should ignore puntuation', () => {
     encodedText: 'Hlelo! Lcua.'
   }
 
-  const output = encode({ text })
+  const output = encode(text)
 
+  expect(output.warn).toBeFalsy()
   expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
   expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
@@ -58,7 +57,7 @@ test('should return only shuffled words', () => {
     encodedText: 'Hey, hlelo! Lcua.'
   }
 
-  const output = encode({ text })
+  const output = encode(text)
 
   expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
   expect(output.encodedText).toStrictEqual(expected.encodedText)
@@ -71,7 +70,7 @@ test('should return unique words', () => {
     encodedText: 'Hey Lcua, hlelo! Lcua.'
   }
 
-  const output = encode({ text })
+  const output = encode(text)
 
   expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
   expect(output.encodedText).toStrictEqual(expected.encodedText)

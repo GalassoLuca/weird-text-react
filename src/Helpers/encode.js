@@ -1,21 +1,35 @@
-export function encode ({ text = '' } = {}) {
-  if (!text.length) {
-    return { warn: 'Missing text' }
-  }
+export default function encode (text = '') {
+  const { wordsToEncode, warnings } = getWordsToEncrypt(text)
 
+  const encodedText = wordsToEncode.reduce(encodeWord, text)
+
+  return {
+    encodedWords: wordsToEncode,
+    encodedText,
+    warn: warnings.length && `Remember that this encriptions does not works with  ${warnings.join(';')}`
+  }
+}
+
+function getWordsToEncrypt (text = '') {
   const words = text.split(/[^a-zA-Z]+/g)
+  let hasShortWords, hasNonCrytableLongWords
 
-  const wordsToEncode = words.filter(w => w.length > 3) // TODO: return warn for words like biiiig, heeeeeey, ...
-  const encodedWords = Array.from(new Set(wordsToEncode))
-  const encodedText = encodedWords.reduce(encodeWord, text)
+  const wordsToEncode = words
+    .filter(Boolean)
+    .filter(w => !(w.length <= 3 && (hasShortWords = true)))
+    .filter(w => !(distinctChars(w.slice(1, w.length - 1)).size === 1 && (hasNonCrytableLongWords = true)))
 
-  const result = { encodedWords, encodedText }
-
-  if (words.some(w => w.length <= 3)) {
-    result.warn = 'Words with 3 characters or less are not encrypted'
+  return {
+    wordsToEncode: Array.from(new Set(wordsToEncode)),
+    warnings: [
+      hasShortWords && 'words that have 3 character or less',
+      hasNonCrytableLongWords && 'words that have a single distinct character (ignoring the first and last)',
+    ].filter(Boolean)
   }
+}
 
-  return result
+function distinctChars (text = '') {
+  return new Set(text.split(''))
 }
 
 /* TODO: improve encodeWord function
