@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Encoding and decoding tool.",
   "keywords": [],
-  "main": "src/index.js",
+  "main": "src/index.jsx",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -20,7 +20,9 @@
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.1",
     "@testing-library/user-event": "^10.0.0",
-    "fsevents": "^2.1.2"
+    "fsevents": "^2.1.2",
+    "faker": "^4.1.0",
+    "sinon": "^9.0.0"
   },
   "browserslist": [
     ">0.2%",
