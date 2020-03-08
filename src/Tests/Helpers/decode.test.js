@@ -5,7 +5,7 @@ test('should return a warning if the words are missing', () => {
 
   const result = decode(encrypted)
 
-  expect(result.warnings.missingWords).toBeTruthy()
+  expect(result.warnings.length).toBe(1)
 })
 
 test('should decrypt a single word', () => {
@@ -30,13 +30,14 @@ test('should decrypt a multiple words', () => {
   expect(result.decodedText).toEqual(original)
 })
 
-test.skip('should return a warning if a word can be decoded to multiple words', () => {
-  const original = 'Carnivorous species may die from Coronavirus, like the humans.'
-  const encrypted = 'Carnivorous species may die from Coronavirus, like the humans.'
+test('should return a warning if a word can be decoded to multiple words', () => {
+  // const original = 'Carnivorous species may die from Coronavirus, like the humans.'
+  const expected = 'Cavoruoirns species may die from Cvnaoiurors, like the humans.'
+  const encrypted = 'Cavoruoirns seceips may die form Cvnaoiurors, lkie the huamns.'
   const words = ['Carnivorous', 'species', 'may', 'die', 'from', 'Coronavirus', 'like', 'the', 'humans']
 
   const result = decode(encrypted, words)
 
-  expect(result.warn).toBeDefined()
-  expect(result.decoded).toEqual(original)
+  expect(result.decodedText).toEqual(expected)
+  expect(result.warnings.length).toBe(2)
 })

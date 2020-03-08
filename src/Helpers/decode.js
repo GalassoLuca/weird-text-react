@@ -2,25 +2,29 @@ import getWords from './getWords'
 
 export default function decode(text = '', originalWords = []) {
   if (originalWords.length === 0) {
-    return { warnings: { missingWords: true } }
+    return { warnings: [ 'Specifie the list of the original words' ] }
   }
 
   let decodedText = text
+  const warnings = []
   const { words: wordsToDecode } = getWords(text)
 
   const originalWordsHasMap = originalWords.reduce(toMap, new Map())
-  const wordsToDecodeHasMap = wordsToDecode.reduce(toMap, new Map())
 
   wordsToDecode.forEach(wordToDecode => {
     const key = getKey(wordToDecode)
     const values = originalWordsHasMap.get(key)
 
-    if (values.length > 1) throw new Error('handle this case')
+    if (values.length > 1) {
+      const message = `Can not decode the word "${wordToDecode}". Found more the one similar word (${values.join(', ')})`
+      warnings.push(message)
+      return
+    }
 
     decodedText = decodedText.replace(wordToDecode, values[0])
   })
 
-  return { decodedText }
+  return { decodedText, warnings }
 }
 
 function getKey(string) {
