@@ -1,7 +1,7 @@
-export default function encode (text = '') {
+export default function encode(text = '') {
   const { wordsToEncode, warnings } = getWordsToEncrypt(text)
 
-  const encodedText = wordsToEncode.reduce(encodeWord, text)
+  const encodedText = wordsToEncode.reduce(encodeWordInText, text)
 
   return {
     encodedWords: wordsToEncode,
@@ -10,7 +10,7 @@ export default function encode (text = '') {
   }
 }
 
-function getWordsToEncrypt (text = '') {
+function getWordsToEncrypt(text = '') {
   const words = text.split(/[^a-zA-Z]+/g)
   let hasShortWords, hasNonCrytableLongWords
 
@@ -28,22 +28,35 @@ function getWordsToEncrypt (text = '') {
   }
 }
 
-function distinctChars (text = '') {
+function distinctChars(text = '') {
   return new Set(text.split(''))
 }
 
-/* TODO: improve encodeWord function
+/* TODO: improve encodeWordInText function
  * it should randomly suffle, or, at least, it should always return a different word from the one in input
  * e.g. `Yeeah`
  **/
-function encodeWord (text, word) {
+function encodeWordInText(text, word) {
   const matchWith = new RegExp(word, 'g')
   let replaceWith = word
 
   if (word.length > 3) {
-    const [a, b, c] = word
-    replaceWith = word[0] + c + b + word.substring(3)
+    replaceWith = encodeWord(word)
   }
 
   return text.replace(matchWith, replaceWith)
+}
+
+function encodeWord(word) {
+  const shuffled = word
+    .substring(1, word.length - 1)
+    .split('')
+    .map(a => [Math.random(), a])
+    .sort((a, b) => a[0] - b[0]) // n*logn while the shuffle can be done in Θ(n)
+    .map(a => a[1])
+    .join('')
+
+  const shuffleWord = word[0] + shuffled + word[word.length - 1]
+
+  return word !== shuffleWord ? shuffleWord : encodeWord(word)
 }

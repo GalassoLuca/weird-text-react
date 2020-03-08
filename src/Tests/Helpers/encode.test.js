@@ -1,4 +1,21 @@
 import encode from '../../Helpers/encode'
+import sinon from 'sinon'
+import faker from 'faker'
+
+let random
+
+beforeEach(() => {
+  faker.seed(5)
+})
+
+beforeAll(() => {
+  random = sinon.stub(Math, 'random')
+  random.callsFake(() => 1 / faker.random.number())
+})
+
+afterAll(() => {
+  sinon.resetBehavior()
+})
 
 test('should return a warning if there are short words', () => {
   const text = 'Hey'
@@ -23,10 +40,10 @@ test('should return the expected for one long word', () => {
 })
 
 test('should encode multiple words', () => {
-  const text = 'Hello Luca'
+  const text = 'Hello World'
   const expected = {
-    encodedWords: ['Hello', 'Luca'],
-    encodedText: 'Hlelo Lcua'
+    encodedWords: ['Hello', 'World'],
+    encodedText: 'Hlelo Wolrd'
   }
 
   const output = encode(text)
@@ -37,10 +54,10 @@ test('should encode multiple words', () => {
 })
 
 test('should ignore puntuation', () => {
-  const text = 'Hello! Luca.'
+  const text = 'Hello! World.'
   const expected = {
-    encodedWords: ['Hello', 'Luca'],
-    encodedText: 'Hlelo! Lcua.'
+    encodedWords: ['Hello', 'World'],
+    encodedText: 'Hlelo! Wolrd.'
   }
 
   const output = encode(text)
@@ -50,7 +67,7 @@ test('should ignore puntuation', () => {
   expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
 
-test('should return only shuffled words', () => {
+test('should only return shuffled words', () => {
   const text = 'Hey, hello! Luca.'
   const expected = {
     encodedWords: ['hello', 'Luca'],
@@ -73,7 +90,4 @@ test('should return unique words', () => {
   const output = encode(text)
 
   expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
-  expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
-
-test.skip('should shuffle words', () => { })
