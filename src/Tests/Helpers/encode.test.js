@@ -22,7 +22,7 @@ test('should return a warning if there are short words', () => {
 
   const output = encode(text)
 
-  expect(output.warnings.hasShortWords).toBeTruthy()
+  expect(output.warnings.length).toBeGreaterThan(0)
 })
 
 test('should encrypt a word', () => {

@@ -5,8 +5,7 @@ test('should return a warning if there are short words', () => {
 
   const output = getWords(text)
 
-  expect(output.warnings.hasShortWords).toBeTruthy()
-  expect(output.warnings.hasNonCrytableLongWords).toBeFalsy()
+  expect(output.warnings.length).toBeGreaterThan(0)
   expect(output.words).toEqual([])
 })
 
@@ -15,8 +14,7 @@ test('should return a warning if there is a long words that is not encryptable',
 
   const output = getWords(text)
 
-  expect(output.warnings.hasShortWords).toBeFalsy()
-  expect(output.warnings.hasNonCrytableLongWords).toBeTruthy()
+  expect(output.warnings.length).toBeGreaterThan(0)
   expect(output.words).toEqual([])
 })
 
@@ -25,9 +23,7 @@ test('should return the correct list of words for a single word', () => {
 
   const output = getWords(text)
 
-  expect(output.warnings.hasShortWords).toBeFalsy()
-  expect(output.warnings.hasNonCrytableLongWords).toBeFalsy()
-
+  expect(output.warnings).toEqual([])
   expect(output.words).toEqual([text])
 })
 
@@ -36,9 +32,8 @@ test('should return the correct list of words for a multiple words', () => {
 
   const output = getWords(text)
 
-  expect(output.warnings.hasShortWords).toBeFalsy()
-  expect(output.warnings.hasNonCrytableLongWords).toBeFalsy()
 
+  expect(output.warnings).toEqual([])
   const expectWords = ['Hello', 'World']
   expect(output.words.sort()).toEqual(expectWords.sort())
 })
