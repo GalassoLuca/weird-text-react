@@ -57,9 +57,7 @@ exports[`renders learn react link 1`] = `
     <h4>
       Decoded text
     </h4>
-    <div>
-      Here the text.
-    </div>
+    <div />
   </div>
 </DocumentFragment>
 `;
