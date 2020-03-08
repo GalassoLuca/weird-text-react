@@ -22,10 +22,10 @@ test('should return a warning if there are short words', () => {
 
   const output = encode(text)
 
-  expect(output.warn).toBeDefined()
+  expect(output.warnings.hasShortWords).toBeTruthy()
 })
 
-test('should return the expected for one long word', () => {
+test('should encrypt a word', () => {
   const text = 'Hello'
   const expected = {
     encodedWords: ['Hello'],
@@ -34,7 +34,7 @@ test('should return the expected for one long word', () => {
 
   const output = encode(text)
 
-  expect(output.warn).toBeFalsy()
+  expect(output.warnings.hasShortWords).toBeFalsy()
   expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
   expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
@@ -48,7 +48,6 @@ test('should encode multiple words', () => {
 
   const output = encode(text)
 
-  expect(output.warn).toBeFalsy()
   expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
   expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
@@ -62,7 +61,6 @@ test('should ignore puntuation', () => {
 
   const output = encode(text)
 
-  expect(output.warn).toBeFalsy()
   expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
   expect(output.encodedText).toStrictEqual(expected.encodedText)
 })

@@ -3,7 +3,7 @@ import encode from '../Helpers/encode'
 
 export default function Encoder() {
   const textRef = useRef()
-  const [encoded, setEncoded] = useState({ encodedWords: [], encodedText: '', warn: '' })
+  const [encoded, setEncoded] = useState({ encodedText: '', encodedWords: [], warnings: '' })
 
   function encodeText (e) {
     const text = textRef.current.value
