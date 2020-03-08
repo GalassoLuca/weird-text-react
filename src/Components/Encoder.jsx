@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import encode from '../Helpers/encode'
+import encode from '../helpers/encode'
 
 export default function Encoder() {
   const textRef = useRef()

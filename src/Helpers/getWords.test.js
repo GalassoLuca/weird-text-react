@@ -1,4 +1,4 @@
-import getWords from '../../Helpers/getWords'
+import getWords from './getWords'
 
 test('should return a warning if there are short words', () => {
   const text = 'Hey'

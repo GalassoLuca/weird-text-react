@@ -1,4 +1,4 @@
-import encode from '../../Helpers/encode'
+import encode from './encode'
 import sinon from 'sinon'
 import faker from 'faker'
 

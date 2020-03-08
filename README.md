@@ -19,8 +19,8 @@ Test the app with `npm test`
 [x] `Decoder`: integrate decoder
 [x] `encode`: improve shuffle function
 [x] do I need services/helper?
+[x] is the folder structure clear enough?
 [ ] should I try TypeScript?
-[ ] is the folder structure clear?
 [ ] `npm audit`: found 67 vulnerabilities (63 low, 2 moderate, 2 high) in 36437 scanned packages
 [ ] missing `test.todo`: it looks like `test.todo` is not a function, while it is a Jest function
 

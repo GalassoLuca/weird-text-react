@@ -1,4 +1,4 @@
-import decode from '../../Helpers/decode'
+import decode from './decode'
 
 test('should return a warning if the words are missing', () => {
   const encrypted = 'random text'

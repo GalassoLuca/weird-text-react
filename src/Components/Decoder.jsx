@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import decode from '../Helpers/decode'
+import decode from '../helpers/decode'
 
 export default function Decoder() {
   const textRef = useRef()
