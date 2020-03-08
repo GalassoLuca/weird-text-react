@@ -15,6 +15,12 @@ export default function decode(text = '', originalWords = []) {
     const key = getKey(wordToDecode)
     const values = originalWordsHasMap.get(key)
 
+    if (!values) {
+      const message = `Can not decode the word ${wordToDecode}. Can not found the original word in the specified list.`
+      warnings.push(message)
+      return
+    }
+
     if (values.length > 1) {
       const message = `Can not decode the word "${wordToDecode}". Found more the one similar word (${values.join(', ')})`
       warnings.push(message)

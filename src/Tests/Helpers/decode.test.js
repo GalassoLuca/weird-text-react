@@ -8,6 +8,18 @@ test('should return a warning if the words are missing', () => {
   expect(result.warnings.length).toBe(1)
 })
 
+test('should return a warning if an original word is missing', () => {
+  // const original = 'Hello World'
+  const encrypted = 'Hlelo Wrlod'
+  const words = ['Hello']
+  const expected = 'Hello Wrlod'
+
+  const result = decode(encrypted, words)
+
+  expect(result.decodedText).toEqual(expected)
+  expect(result.warnings.length).toBe(1)
+})
+
 test('should decrypt a single word', () => {
   const original = 'word'
 
