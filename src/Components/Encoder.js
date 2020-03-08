@@ -3,15 +3,12 @@ import encode from '../Helpers/encode'
 
 export default function Encoder() {
   const textRef = useRef()
-  const [encodedWords, setEncodedWords] = useState([])
-  const [encodedText, setEncodeText] = useState('')
+  const [encoded, setEncoded] = useState({ encodedWords: [], encodedText: '', warn: '' })
 
   function encodeText (e) {
     const text = textRef.current.value
 
-    const encoded = encode(text)
-    setEncodedWords(encoded.encodedWords)
-    setEncodeText(encoded.encodedText)
+    setEncoded(encode(text))
   }
 
   return (
@@ -24,12 +21,12 @@ export default function Encoder() {
       <h3>Output</h3>
       <h4>Encoded text</h4>
       <div>
-        {encodedText}
+        {encoded.encodedText}
       </div>
 
       <h4>List of the original words that got encoded</h4>
       <div>
-        {encodedWords.join(', ')}
+        {encoded.encodedWords.join(', ')}
       </div>
     </>
   )
