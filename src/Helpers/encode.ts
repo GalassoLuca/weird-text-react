@@ -1,6 +1,8 @@
 import getWords from './getWords'
 
-export default function encode(text = '') {
+export interface EncodedText { encodedText: string; encodedWords: string[]; warnings?: string[] }
+
+export default function encode(text = ''): EncodedText {
   const { words, warnings } = getWords(text)
 
   const encodedText = words.reduce(encodeWordInText, text)
@@ -12,7 +14,7 @@ export default function encode(text = '') {
   }
 }
 
-function encodeWordInText(text, word) {
+function encodeWordInText(text: string, word: string): string {
   const matchWith = new RegExp(word, 'g')
   let replaceWith = word
 
@@ -23,13 +25,15 @@ function encodeWordInText(text, word) {
   return text.replace(matchWith, replaceWith)
 }
 
-function encodeWord(word) {
+function encodeWord(word: string): string {
+  interface ShuffleArray { number: number; obj: string }
+
   const shuffled = word
     .substring(1, word.length - 1)
     .split('')
-    .map(a => [Math.random(), a])
-    .sort((a, b) => a[0] - b[0]) // n*logn while the shuffle can be done in Θ(n)
-    .map(a => a[1])
+    .map((a: string) => ({ number: Math.random(), obj: a }))
+    .sort((a: ShuffleArray, b: ShuffleArray) => a.number - b.number) // n*logn while the shuffle can be done in Θ(n)
+    .map((a: ShuffleArray) => a.obj)
     .join('')
 
   const shuffleWord = word[0] + shuffled + word[word.length - 1]

@@ -1,4 +1,6 @@
-export default function getWords(text = '') {
+export interface SplittedWords { words: string[], warnings?: string[] }
+
+export default function getWords(text = ''): SplittedWords {
   let hasShortWords = false
   let hasNonCrytableLongWords = false
 
@@ -18,6 +20,6 @@ export default function getWords(text = '') {
   }
 }
 
-function distinctChars(text = '') {
+function distinctChars(text: string): Set<string> {
   return new Set(text.split(''))
 }

@@ -44,7 +44,10 @@ exports[`renders learn react link 1`] = `
       rows="5"
     />
     <h4>
-      List of the original words that got encoded
+      List of the original words that got encoded, 
+      <i>
+        divided by comma ","
+      </i>
     </h4>
     <div>
       <input

@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react'
-import encode from '../helpers/encode'
+import encode, { EncodedText } from '../helpers/encode'
 
 export default function Encoder() {
-  const textRef = useRef()
-  const [encoded, setEncoded] = useState({ encodedText: '', encodedWords: [], warnings: '' })
+  const textRef = useRef<HTMLTextAreaElement>(null)
+  const [encoded, setEncoded] = useState<EncodedText>({ encodedText: '', encodedWords: [], warnings: [] })
 
-  function encodeText (e) {
-    const text = textRef.current.value
+  function encodeText() {
+    const text = textRef.current?.value
 
     setEncoded(encode(text))
   }
@@ -16,7 +16,7 @@ export default function Encoder() {
       <h2>Encoder</h2>
       <h3>Input</h3>
       <h4>Text to encode</h4>
-      <textarea rows="5" ref={textRef} onChange={encodeText}></textarea>
+      <textarea rows={5} ref={textRef} onChange={encodeText}></textarea>
 
       <h3>Output</h3>
       <h4>Encoded text</h4>

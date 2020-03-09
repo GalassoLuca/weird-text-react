@@ -1,12 +1,15 @@
 import getWords from './getWords'
 
-export default function decode(text = '', originalWords = []) {
+export interface DecodedText { decodedText?: string; warnings: string[] }
+
+// TODO: both params ts mandatory
+export default function decode(text: string = '', originalWords: string[] = []): DecodedText {
   if (originalWords.length === 0) {
-    return { warnings: [ 'Specifie the list of the original words' ] }
+    return { warnings: ['Specifie the list of the original words'] }
   }
 
   let decodedText = text
-  const warnings = []
+  const warnings: string[] = []
   const { words: wordsToDecode } = getWords(text)
 
   const originalWordsHasMap = originalWords.reduce(toMap, new Map())
@@ -33,11 +36,11 @@ export default function decode(text = '', originalWords = []) {
   return { decodedText, warnings }
 }
 
-function getKey(string) {
+function getKey(string: string): string {
   return string.split('').sort().join('')
 }
 
-function toMap(map, word) {
+function toMap(map: Map<string, string[]>, word: string): Map<string, string[]> {
   const key = getKey(word)
   const words = map.get(key) || []
 
