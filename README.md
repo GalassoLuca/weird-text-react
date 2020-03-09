@@ -53,5 +53,5 @@ The score will depend on the following evaluation criteria (alphabetically sorte
 - Tests
 - Tool architecture
 
-### Usefull resources
+### Useful resources
 https://en.wikipedia.org/wiki/Anagram
