@@ -1,52 +1,47 @@
 import getWords from './getWords'
 
-export interface DecodedText { decodedText?: string; warnings: string[] }
+export interface DecodedText { decodedText: string; warnings: string[] }
+type WordsMap = Map<string, string[]>
 
-// TODO: both params ts mandatory
-export default function decode(text: string = '', originalWords: string[] = []): DecodedText {
+export default function decode(text: string, originalWords: string[]): DecodedText {
   if (originalWords.length === 0) {
-    return { warnings: ['Specifie the list of the original words'] }
+    // Is it better to create ValidationError?
+    return {
+      warnings: ['Specify the list of the original words'],
+      decodedText: text
+    }
   }
 
-  let decodedText = text
-  const warnings: string[] = []
-  const { words: wordsToDecode } = getWords(text)
+  const mapOfOriginalWords = originalWords.reduce(addToMapWithUniqueKey, new Map())
 
-  const originalWordsHasMap = originalWords.reduce(toMap, new Map())
+  return getWords(text).words
+    .reduce((result: DecodedText, wordToDecode) => {
+      const key = getKey(wordToDecode)
+      const values = mapOfOriginalWords.get(key)
 
-  wordsToDecode.forEach(wordToDecode => {
-    const key = getKey(wordToDecode)
-    const values = originalWordsHasMap.get(key)
+      if (!values) {
+        result.warnings.push(`Can not decode the word ${wordToDecode}. Can not found the original word in the specified list.`)
+        return result
+      }
 
-    if (!values) {
-      const message = `Can not decode the word ${wordToDecode}. Can not found the original word in the specified list.`
-      warnings.push(message)
-      return
-    }
+      if (values.length > 1) {
+        result.warnings.push(`Can not decode the word "${wordToDecode}". Found more the one similar word (${values.join(', ')})`)
+        return result
+      }
 
-    if (values.length > 1) {
-      const message = `Can not decode the word "${wordToDecode}". Found more the one similar word (${values.join(', ')})`
-      warnings.push(message)
-      return
-    }
+      result.decodedText = result.decodedText.replace(wordToDecode, values[0])
 
-    decodedText = decodedText.replace(wordToDecode, values[0])
-  })
-
-  return { decodedText, warnings }
+      return result
+    }, { decodedText: text, warnings: [] })
 }
 
-function getKey(string: string): string {
-  return string.split('').sort().join('')
-}
+const getKey = (value: string): string => value.split('').sort().join('')
 
-function toMap(map: Map<string, string[]>, word: string): Map<string, string[]> {
+function addToMapWithUniqueKey(wMap: WordsMap, word: string): WordsMap {
   const key = getKey(word)
-  const words = map.get(key) || []
+  const words = wMap.get(key) || []
 
-  words.push(word)
+  wMap.set(key, [...words, word])
 
-  map.set(key, words)
-
-  return map
+  return wMap
 }

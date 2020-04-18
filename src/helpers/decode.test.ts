@@ -1,13 +1,5 @@
 import decode from './decode'
 
-test('should return a warning if the words are missing', () => {
-  const encrypted = 'random text'
-
-  const result = decode(encrypted)
-
-  expect(result.warnings.length).toBe(1)
-})
-
 test('should return a warning if an original word is missing', () => {
   // const original = 'Hello World'
   const encrypted = 'Hlelo Wrlod'
