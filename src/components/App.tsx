@@ -12,7 +12,6 @@ export default function App() {
     <Skin>
       <h1>WeirdText</h1>
 
-      
       <Encoder />
       <Decoder />
     </Skin>

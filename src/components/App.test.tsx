@@ -7,6 +7,9 @@ test('renders learn react link', () => {
   expect(asFragment()).toMatchSnapshot()
 })
 
-test.todo('should contains the title')
-test.todo('should contains the Encoder')
-test.todo('should contains the Decoder')
+test('should contains the title', async () => {
+  const app = render(<App />)
+  const title = await app.findByText('WeirdText')
+
+  expect(title).toBeTruthy()
+})
