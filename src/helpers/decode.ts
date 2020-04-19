@@ -15,24 +15,26 @@ export default function decode(text: string, originalWords: string[]): DecodedTe
   const mapOfOriginalWords = originalWords.reduce(addToMapWithUniqueKey, new Map())
 
   return getWords(text).words
-    .reduce((result: DecodedText, wordToDecode) => {
-      const key = getKey(wordToDecode)
-      const values = mapOfOriginalWords.get(key)
+    .reduce((result: DecodedText, wordToDecode) => decodeWord(result, wordToDecode, mapOfOriginalWords), { decodedText: text, warnings: [] })
+}
 
-      if (!values) {
-        result.warnings.push(`Can not decode the word ${wordToDecode}. Can not found the original word in the specified list.`)
-        return result
-      }
+function decodeWord(result: DecodedText, wordToDecode: string, mapOfOriginalWords: WordsMap): DecodedText {
+  const key = getKey(wordToDecode)
+  const values = mapOfOriginalWords.get(key)
 
-      if (values.length > 1) {
-        result.warnings.push(`Can not decode the word "${wordToDecode}". Found more the one similar word (${values.join(', ')})`)
-        return result
-      }
+  if (!values) {
+    result.warnings.push(`Can not decode the word ${wordToDecode}. Can not found the original word in the specified list.`)
+    return result
+  }
 
-      result.decodedText = result.decodedText.replace(wordToDecode, values[0])
+  if (values.length > 1) {
+    result.warnings.push(`Can not decode the word "${wordToDecode}". Found more the one similar word (${values.join(', ')})`)
+    return result
+  }
 
-      return result
-    }, { decodedText: text, warnings: [] })
+  result.decodedText = result.decodedText.replace(wordToDecode, values[0])
+
+  return result
 }
 
 const getKey = (value: string): string => value.split('').sort().join('')
