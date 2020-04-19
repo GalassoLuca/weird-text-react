@@ -1,6 +1,6 @@
-export interface SplittedWords { words: string[], warnings?: string[] }
+export interface SplittedWords { words: string[], warnings: string[] }
 
-export default function getWords(text = ''): SplittedWords {
+export default function getWords(text: string): SplittedWords {
   let hasShortWords = false
   let hasNonCrytableLongWords = false
 
@@ -8,7 +8,7 @@ export default function getWords(text = ''): SplittedWords {
     .split(/[^a-zA-Z]+/g)
     .filter(Boolean)
     .filter(w => !(w.length <= 3 && (hasShortWords = true)))
-    .filter(w => !(distinctChars(w.slice(1, w.length - 1)).size === 1 && (hasNonCrytableLongWords = true)))
+    .filter(w => !(getUniqueCharacters(w.slice(1, w.length - 1)).size === 1 && (hasNonCrytableLongWords = true)))
 
   const warnings = []
   if (hasShortWords) warnings.push('Can not encode/decode words that have 3 character or less')
@@ -20,6 +20,4 @@ export default function getWords(text = ''): SplittedWords {
   }
 }
 
-function distinctChars(text: string): Set<string> {
-  return new Set(text.split(''))
-}
+const getUniqueCharacters = (text: string): Set<string> => new Set(text.split(''))

@@ -43,8 +43,8 @@ test('should ignore puntuation', () => {
 
   const output = getWords(text)
 
-  expect(output.warnings.hasShortWords).toBeFalsy()
-  expect(output.warnings.hasNonCrytableLongWords).toBeFalsy()
+  expect(output.warnings).toEqual([])
+  expect(output.warnings).toEqual([])
 
   const expectWords = ['Hello', 'World']
   expect(output.words.sort()).toEqual(expectWords.sort())
@@ -55,8 +55,8 @@ test('should return unique words', () => {
 
   const output = getWords(text)
 
-  expect(output.warnings.hasShortWords).toBeFalsy()
-  expect(output.warnings.hasNonCrytableLongWords).toBeFalsy()
+  expect(output.warnings).toEqual([])
+  expect(output.warnings).toEqual([])
 
   const expectWords = ['Hola', 'Luca', 'hello']
   expect(output.words.sort()).toEqual(expectWords.sort())
