@@ -1,8 +1,8 @@
 import getWords from './getWords'
 
-export interface EncodedText { encodedText: string; encodedWords: string[]; warnings?: string[] }
+export interface EncodedText { encodedText: string; encodedWords: string[]; warnings: string[] }
 
-export default function encode(text = ''): EncodedText {
+export default function encode(text: string): EncodedText {
   const { words, warnings } = getWords(text)
 
   const encodedText = words.reduce(encodeWordInText, text)
@@ -14,26 +14,17 @@ export default function encode(text = ''): EncodedText {
   }
 }
 
-function encodeWordInText(text: string, word: string): string {
-  const matchWith = new RegExp(word, 'g')
-  let replaceWith = word
-
-  if (word.length > 3) {
-    replaceWith = encodeWord(word)
-  }
-
-  return text.replace(matchWith, replaceWith)
-}
+const encodeWordInText = (text: string, word: string): string => text.replace(new RegExp(word, 'g'), word.length <= 3 ? word : encodeWord(word))
 
 function encodeWord(word: string): string {
-  interface ShuffleArray { number: number; obj: string }
+  interface ShuffleArray { number: number; value: string }
 
   const shuffled = word
     .substring(1, word.length - 1)
     .split('')
-    .map((a: string) => ({ number: Math.random(), obj: a }))
+    .map((a: string) => ({ number: Math.random(), value: a }))
     .sort((a: ShuffleArray, b: ShuffleArray) => a.number - b.number) // n*logn while the shuffle can be done in Θ(n)
-    .map((a: ShuffleArray) => a.obj)
+    .map((a: ShuffleArray) => a.value)
     .join('')
 
   const shuffleWord = word[0] + shuffled + word[word.length - 1]

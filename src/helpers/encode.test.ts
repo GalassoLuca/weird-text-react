@@ -34,7 +34,7 @@ test('should encrypt a word', () => {
 
   const output = encode(text)
 
-  expect(output.warnings.hasShortWords).toBeFalsy()
+  expect(output.warnings).toEqual([])
   expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
   expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
@@ -48,6 +48,7 @@ test('should encode multiple words', () => {
 
   const output = encode(text)
 
+  expect(output.warnings).toEqual([])
   expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
   expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
@@ -61,6 +62,7 @@ test('should ignore puntuation', () => {
 
   const output = encode(text)
 
+  expect(output.warnings).toEqual([])
   expect(output.encodedWords.sort()).toEqual(expected.encodedWords.sort())
   expect(output.encodedText).toStrictEqual(expected.encodedText)
 })
